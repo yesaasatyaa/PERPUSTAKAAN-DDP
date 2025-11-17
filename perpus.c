@@ -5,5 +5,6 @@ void tambah_buku(){
 }
 
 int main(){
+    int apa;
     
 }
