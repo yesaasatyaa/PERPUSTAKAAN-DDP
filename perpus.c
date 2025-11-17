@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-void 
+void tambah_buku(){
+    
+}
 
 int main(){
     
