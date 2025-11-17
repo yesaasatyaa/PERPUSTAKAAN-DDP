@@ -5,5 +5,12 @@
 
 #define MAX_BUKU 100
 
-struct
+struct Buku {
+    char judul[100];
+    char penulis[100];
+    int tahun;
+};
+
+struct Buku perpustakaan[MAX_BUKU];
+int jumlah_buku = 0;
 
