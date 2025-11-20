@@ -64,6 +64,53 @@ void login(){
     }
 }
 
+void tambahBuku() {
+    struct Buku b;
+
+    printf("\n=== Tambah Buku ===\n");
+    fflush(stdin); 
+    printf("Judul Buku : ");
+    fgets(b.judul, sizeof(b.judul), stdin);
+    b.judul[strcspn(b.judul, "\n")] = '\0'; 
+
+    printf("Penulis Buku : ");
+    fgets(b.penulis, sizeof(b.penulis), stdin);
+    b.penulis[strcspn(b.penulis, "\n")] = '\0';
+
+    printf("Tahun Terbit : ");
+    scanf("%d", &b.tahun);
+
+    b.dipinjam = 0; 
+    strcpy(b.peminjam, "-");
+    b.telat = 0;
+    strcpy(b.alasan, "-");
+
+    daftarBuku[jumlahBuku++] = b;
+
+    printf("\nBuku berhasil ditambahkan!\n");
+}
+
+void lihatBuku() {
+    printf("\n=== List Buku ===\n");
+    if(jumlahBuku == 0){
+        printf("Belum ada buku yang terdaftar.\n");
+        return;
+    }
+
+    for(int i = 0; i < jumlahBuku; i++){
+        printf("\nBuku ke-%d\n", i+1);
+        printf("Judul     : %s\n", daftarBuku[i].judul);
+        printf("Penulis   : %s\n", daftarBuku[i].penulis);
+        printf("Tahun     : %d\n", daftarBuku[i].tahun);
+        printf("Status    : %s\n", daftarBuku[i].dipinjam ? "Dipinjam" : "Tersedia");
+        if(daftarBuku[i].dipinjam){
+            printf("Peminjam  : %s\n", daftarBuku[i].peminjam);
+            printf("Telat     : %d hari\n", daftarBuku[i].telat);
+            printf("Alasan    : %s\n", daftarBuku[i].alasan);
+        }
+    }
+}
+
 void menuUtama(){
     int pilihan;
 
