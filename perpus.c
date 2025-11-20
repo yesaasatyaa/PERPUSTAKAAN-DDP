@@ -111,6 +111,77 @@ void lihatBuku() {
     }
 }
 
+void rumahPola(){
+    system("cls");
+
+    int tinggiAtap = 4;
+    int lebar = 11;
+
+    for(int i = 0; i < tinggiAtap; i++) {
+        for (int s = 0; s < tinggiAtap - i; s++) {
+            putchar(' ');
+        }
+
+        putchar('/');
+
+        for (int t = 0; t < i *2; t++) {
+             if (i == tinggiAtap -1)
+                putchar('_'); 
+             else
+             putchar(' ');
+        }   
+    
+        putchar('\\');
+        putchar('\n');
+    }
+
+    for (int i = 0; i <3; i++) {
+        putchar(' ');
+        putchar(' ');
+        putchar(' ');
+        putchar(' ');
+        putchar('|');
+
+        if(i == 1)
+            printf("  []  ");
+        else
+            printf("      ");
+
+
+        putchar('|');
+        putchar('\n');
+    }  
+    
+    for (int i = 0; i < 4; i++) {
+        printf("   |");
+
+        if (i == 0)
+            printf("  __  ");
+        else if (i == 1 || i == 2)
+            printf(" |  | ");
+        else
+            printf(" |__| ");
+
+        printf("|\n");
+    }
+    
+    for (int i = 0; i < 4; i++) {
+        printf("   |");
+
+        if (i == 0)
+            printf("  __  ");
+        else if (i == 1 || i == 2)
+            printf(" |  | ");
+        else
+            printf(" |__| ");
+
+        printf("|\n");
+    }
+
+
+    }
+
+
 void menuUtama(){
     int pilihan;
 
