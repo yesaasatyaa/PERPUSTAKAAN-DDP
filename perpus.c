@@ -178,8 +178,28 @@ void rumahPola(){
         printf("|\n");
     }
 
+}
 
-    }
+void editBuku(){
+    printf("hai");
+}
+
+void hapusBuku(){
+    printf("hai");
+}
+
+void benderaNegara(){
+    printf("hai");
+}
+
+void pinjamBuku(){
+    printf("hai");
+}
+
+void pengembalianBuku(){
+    printf("hai");
+}
+
 
 
 void menuUtama(){
