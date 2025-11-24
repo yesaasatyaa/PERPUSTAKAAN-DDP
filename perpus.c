@@ -136,36 +136,36 @@ void editBuku(){
         return;
     }
 
-printf("\n=== Data Buku Saat Ini ===\n");
-printf("Judul     : %s\n", daftarBuku[idx].judul);
-printf("Penulis   : %s\n", daftarBuku[idx].penulis);
-printf("Tahun     : %s\n", daftarBuku[idx].tahun);
-printf("Status    : %s\n", daftarBuku[idx].dipinjam ? "Dipinjam" : "Tersedia");
+    printf("\n=== Data Buku Saat Ini ===\n");
+    printf("Judul     : %s\n", daftarBuku[idx].judul);
+    printf("Penulis   : %s\n", daftarBuku[idx].penulis);
+    printf("Tahun     : %s\n", daftarBuku[idx].tahun);
+    printf("Status    : %s\n", daftarBuku[idx].dipinjam ? "Dipinjam" : "Tersedia");
 
-printf("\n=== Edit Buku (Kosongkan untuk tidak mengubah) ===\n");
+    printf("\n=== Edit Buku (Kosongkan untuk tidak mengubah) ===\n");
 
-printf("Judul baru : ");
-fgets(tmp, sizeof(tmp), stdin);
-tmp[strcspn(tmp, "\n")] = '\0';
-if(strlen(tmp) > 0)
+    printf("Judul baru : ");
+    fgets(tmp, sizeof(tmp), stdin);
+    tmp[strcspn(tmp, "\n")] = '\0';
+    if(strlen(tmp) > 0)
     strcpy(daftarBuku[idx].judul, tmp);
 
-printf("Penulis baru : ");
-fgets(tmp, sizeof(tmp), stdin);
-tmp[strcspn(tmp, "\n")] = '\0';
-if(strlen(tmp) > 0)
+    printf("Penulis baru : ");
+    fgets(tmp, sizeof(tmp), stdin);
+    tmp[strcspn(tmp, "\n")] = '\0';
+    if(strlen(tmp) > 0)
     strcpy(daftarBuku[idx].penulis, tmp);
 
-printf("Tahun baru : ");
-fgets(tmp, sizeof(tmp), stdin);
-tmp[strcspn(tmp, "\n")] = '\0';
-if(strlen(tmp) > 0){
+    printf("Tahun baru : ");
+    fgets(tmp, sizeof(tmp), stdin);
+    tmp[strcspn(tmp, "\n")] = '\0';
+    if(strlen(tmp) > 0){
     int tahunBaru = atoi(tmp);
     if(tahunBaru > 0)
         daftarBuku[idx].tahun = tahunBaru;
 }
 
-printf("\nBuku berhasil diperbarui!\n");
+    printf("\nBuku berhasil diperbarui!\n");
 }
 
 void hapusBuku(){
