@@ -208,6 +208,9 @@ void rumahPola(){
 
     int tinggiAtap = 4;
 
+    printf("       ~ ~\n");
+    printf("       ~\n");
+
     for(int i = 0; i < tinggiAtap; i++) {
         for (int s = 0; s < tinggiAtap - i; s++) {
             putchar(' ');
@@ -215,7 +218,7 @@ void rumahPola(){
 
         putchar('/');
 
-        for (int t = 0; t < i *2; t++) {
+        for (int t = 0; t < i * 2; t++) {
              if (i == tinggiAtap -1)
                  putchar('_'); 
              else
@@ -226,48 +229,34 @@ void rumahPola(){
         putchar('\n');
     }
 
-    for (int i = 0; i <3; i++) {
-        putchar(' ');
-        putchar(' ');
-        putchar(' ');
-        putchar(' ');
-        putchar('|');
+    for (int i = 0; i < 4; i++) {
+        printf("|");
 
-        if(i == 1)
-            printf("  []  ");
+        if(i == 1 || i == 2)
+            printf(" []  [] ");
         else
-            printf("      ");
+            printf("        ");
 
-
-        putchar('|');
-        putchar('\n');
+        printf("|\n");
     }  
     
-    for (int i = 0; i < 4; i++) {
-        printf("   |");
+    for (int i = 0; i < 3; i++) {
+        printf("|");
 
         if (i == 0)
-            printf("  __  ");
-        else if (i == 1 || i == 2)
-            printf(" |  | ");
+            printf("  ___   ");
+        else if (i == 1 )
+            printf(" |o o|  ");
         else
-            printf(" |__| ");
+            printf(" |___|  ");
 
         printf("|\n");
     }
     
-    for (int i = 0; i < 4; i++) {
-        printf("   |");
+    for (int i = 0; i < 5; i++) 
+        printf("=|");
+    printf("=|");
 
-        if (i == 0)
-            printf("  __  ");
-        else if (i == 1 || i == 2)
-            printf(" |  | ");
-        else
-            printf(" |__| ");
-
-        printf("|\n");
-    }
 
 }
 
