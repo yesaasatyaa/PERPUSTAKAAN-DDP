@@ -22,6 +22,15 @@ struct User{
 struct Buku daftarBuku[100];
 int jumlahBuku = 0;
 
+int cariIndexByJudul(char judul[]){
+    for(int i = 0; i < jumlahBuku; i++){
+        if(strcmp(daftarBuku[i].judul, judul) == 0){
+            return i;
+        }
+    }
+    return -1;
+}
+
 struct User admin = {"admin", "admin123"};
 
 void inputPassword(char *pass){
@@ -111,6 +120,78 @@ void lihatBuku() {
     }
 }
 
+void editBuku(){
+    char judulCari[100];
+    char tmp[100];
+
+    fflush(stdin);
+    printf("\nMasukkan judul buku yang akan diedit : ");
+    fgets(judulCari, sizeof(judulCari), stdin);
+    judulCari[strcspn(judulCari, "\n")] = '\0';
+
+    int idx = cariIndexByJudul(judulCari);
+
+    if(idx == -1){
+        printf("\nBuku tidak ditemukan!\n");
+        return;
+    }
+
+printf("\n=== Data Buku Saat Ini ===\n");
+printf("Judul     : %s\n", daftarBuku[idx].judul);
+printf("Penulis   : %s\n", daftarBuku[idx].penulis);
+printf("Tahun     : %s\n", daftarBuku[idx].tahun);
+printf("Status    : %s\n", daftarBuku[idx].dipinjam ? "Dipinjam" : "Tersedia");
+
+printf("\n=== Edit Buku (Kosongkan untuk tidak mengubah) ===\n");
+
+printf("Judul baru : ");
+fgets(tmp, sizeof(tmp), stdin);
+tmp[strcspn(tmp, "\n")] = '\0';
+if(strlen(tmp) > 0)
+    strcpy(daftarBuku[idx].judul, tmp);
+
+printf("Penulis baru : ");
+fgets(tmp, sizeof(tmp), stdin);
+tmp[strcspn(tmp, "\n")] = '\0';
+if(strlen(tmp) > 0)
+    strcpy(daftarBuku[idx].penulis, tmp);
+
+printf("Tahun baru : ");
+fgets(tmp, sizeof(tmp), stdin);
+tmp[strcspn(tmp, "\n")] = '\0';
+if(strlen(tmp) > 0){
+    int tahunBaru = atoi(tmp);
+    if(tahunBaru > 0)
+        daftarBuku[idx].tahun = tahunBaru;
+}
+
+printf("\nBuku berhasil diperbarui!\n");
+}
+
+void hapusBuku(){
+    char judulCari[100];
+
+    fflush(stdin);
+    printf("\nMasukkan judul buku yang akan dihapus : ");
+    fgets(judulCari, sizeof(judulCari), stdin);
+    judulCari[strcspn(judulCari, "\n")] = '\0';
+
+    int idx = cariIndexByJudul(judulCari);
+
+    if(idx == 1){
+        printf("\nBuku tidak ditemukan!\n");
+        return;
+    }
+
+    for(int i = idx; i < jumlahBuku - 1; i++){
+        daftarBuku[i] = daftarBuku[i+1];
+    }
+
+    jumlahBuku--;
+
+    printf("\nBuku berhasil dihapus!\n");
+}
+
 void rumahPola(){
     system("cls");
 
@@ -178,14 +259,6 @@ void rumahPola(){
         printf("|\n");
     }
 
-}
-
-void editBuku(){
-    printf("hai");
-}
-
-void hapusBuku(){
-    printf("hai");
 }
 
 void benderaNegara(){
