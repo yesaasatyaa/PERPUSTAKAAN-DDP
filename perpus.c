@@ -4,6 +4,7 @@
 #include <conio.h>
 
 struct Buku {
+    int id;               
     char judul[100];
     char penulis[100];
     int tahun;
@@ -13,6 +14,7 @@ struct Buku {
     int telat;
     char alasan[100];
 };
+
 
 struct User{
     char username[30];
@@ -77,10 +79,13 @@ void tambahBuku() {
     struct Buku b;
 
     printf("\n=== Tambah Buku ===\n");
-    fflush(stdin); 
+    fflush(stdin);
+
+    b.id = jumlahBuku + 1;  
+
     printf("Judul Buku : ");
     fgets(b.judul, sizeof(b.judul), stdin);
-    b.judul[strcspn(b.judul, "\n")] = '\0'; 
+    b.judul[strcspn(b.judul, "\n")] = '\0';
 
     printf("Penulis Buku : ");
     fgets(b.penulis, sizeof(b.penulis), stdin);
@@ -89,7 +94,7 @@ void tambahBuku() {
     printf("Tahun Terbit : ");
     scanf("%d", &b.tahun);
 
-    b.dipinjam = 0; 
+    b.dipinjam = 0;
     strcpy(b.peminjam, "-");
     b.telat = 0;
     strcpy(b.alasan, "-");
@@ -99,26 +104,32 @@ void tambahBuku() {
     printf("\nBuku berhasil ditambahkan!\n");
 }
 
+
 void lihatBuku() {
-    printf("\n=== List Buku ===\n");
-    if(jumlahBuku == 0){
-        printf("Belum ada buku yang terdaftar.\n");
+    printf("\n=== DAFTAR BUKU ===\n");
+
+    if (jumlahBuku == 0) {
+        printf("Belum ada buku.\n");
         return;
     }
 
-    for(int i = 0; i < jumlahBuku; i++){
-        printf("\nBuku ke-%d\n", i+1);
-        printf("Judul     : %s\n", daftarBuku[i].judul);
-        printf("Penulis   : %s\n", daftarBuku[i].penulis);
-        printf("Tahun     : %d\n", daftarBuku[i].tahun);
-        printf("Status    : %s\n", daftarBuku[i].dipinjam ? "Dipinjam" : "Tersedia");
-        if(daftarBuku[i].dipinjam){
-            printf("Peminjam  : %s\n", daftarBuku[i].peminjam);
-            printf("Telat     : %d hari\n", daftarBuku[i].telat);
-            printf("Alasan    : %s\n", daftarBuku[i].alasan);
-        }
+    printf("+----+------------------------------+-------------------------+-------+-------------+\n");
+    printf("| ID | Judul                        | Penulis                 | Tahun | Status      |\n");
+    printf("+----+------------------------------+-------------------------+-------+-------------+\n");
+
+    for (int i = 0; i < jumlahBuku; i++) {
+        printf("| %-2d | %-28s | %-23s | %-5d | %-11s |\n",
+            daftarBuku[i].id,
+            daftarBuku[i].judul,
+            daftarBuku[i].penulis,
+            daftarBuku[i].tahun,
+            daftarBuku[i].dipinjam ? "Dipinjam" : "Tersedia"
+        );
     }
+
+    printf("+----+------------------------------+-------------------------+-------+-------------+\n");
 }
+
 
 void editBuku(){
     char judulCari[100];
@@ -265,13 +276,147 @@ void benderaNegara(){
     printf("hai");
 }
 
-void pinjamBuku(){
-    printf("hai");
+void pinjamBuku() {
+    printf("\n=== DAFTAR BUKU ===\n");
+    lihatBuku();
+
+    if (jumlahBuku == 0) {
+        printf("\nTekan enter untuk kembali ke menu...");
+        getch();
+        return;
+    }
+
+    int id;
+    printf("\nMasukkan ID buku yang ingin dipinjam: ");
+    scanf("%d", &id);
+
+    int idx = id - 1;
+
+    if (idx < 0 || idx >= jumlahBuku) {
+        printf("ID tidak valid!\n");
+
+        printf("\nTekan enter untuk kembali ke menu...");
+        getch();
+        return;
+    }
+
+    if (daftarBuku[idx].dipinjam) {
+        printf("Buku sedang dipinjam oleh %s\n", daftarBuku[idx].peminjam);
+
+        printf("\nTekan enter untuk kembali ke menu...");
+        getch();
+        return;
+    }
+
+    fflush(stdin);
+    char nama[50];
+    printf("Masukkan nama peminjam : ");
+    fgets(nama, sizeof(nama), stdin);
+    nama[strcspn(nama, "\n")] = '\0';
+
+    daftarBuku[idx].dipinjam = 1;
+    strcpy(daftarBuku[idx].peminjam, nama);
+
+    printf("\nBuku berhasil dipinjam!\n");
+
+    printf("\nTekan enter untuk kembali ke menu...");
+    getch();
 }
 
-void pengembalianBuku(){
-    printf("hai");
+
+
+void pengembalianBuku() {
+
+    printf("\n=== DAFTAR BUKU ===\n");
+    lihatBuku(); 
+
+    if (jumlahBuku == 0) {
+        printf("\nTidak ada buku.\n");
+        return;
+    }
+
+    int id;
+    printf("\nMasukkan ID buku yang ingin dikembalikan : ");
+    scanf("%d", &id);
+
+    int idx = id - 1;
+
+    if (idx < 0 || idx >= jumlahBuku) {
+        printf("ID tidak valid!\n");
+        return;
+    }
+
+    if (!daftarBuku[idx].dipinjam) {
+        printf("Buku ini tidak sedang dipinjam.\n");
+        return;
+    }
+
+    printf("Buku dipinjam oleh : %s\n", daftarBuku[idx].peminjam);
+
+    int telat;
+    printf("Masukkan jumlah hari keterlambatan (0 jika tidak telat): ");
+    scanf("%d", &telat);
+
+    int denda = telat * 1000;
+    printf("Total denda : Rp %d\n", denda);
+
+    printf("\n=== Metode Pembayaran ===\n");
+    printf("1. Cash\n");
+    printf("2. QRIS (harus pas, tidak ada kembalian)\n");
+    printf("Pilih metode : ");
+
+    int metode;
+    scanf("%d", &metode);
+
+    int bayar;
+
+    if (metode == 1) {  
+        printf("Masukkan jumlah uang cash : ");
+        scanf("%d", &bayar);
+
+        if (bayar < denda) {
+            printf("Uang tidak cukup! Transaksi dibatalkan.\n");
+            return;
+        }
+
+        int kembalian = bayar - denda;
+
+        printf("\n=== STRUK PEMBAYARAN CASH ===\n");
+        printf("Metode     : Cash\n");
+        printf("Uang Bayar : Rp %d\n", bayar);
+        printf("Denda      : Rp %d\n", denda);
+        printf("Kembalian  : Rp %d\n", kembalian);
+        printf("===============================\n");
+
+    } else if (metode == 2) {  
+        printf("Masukkan nominal QRIS : ");
+        scanf("%d", &bayar);
+
+        if (bayar != denda) {
+            printf("QRIS harus pas! Transaksi dibatalkan.\n");
+            return;
+        }
+
+        printf("\n=== STRUK PEMBAYARAN QRIS ===\n");
+        printf("Metode : QRIS\n");
+        printf("Bayar  : Rp %d\n", bayar);
+        printf("Denda  : Rp %d\n", denda);
+        printf("Status : BERHASIL\n");
+        printf("==============================\n");
+
+    } else {
+        printf("Metode tidak valid!\n");
+        return;
+    }
+
+    daftarBuku[idx].dipinjam = 0;
+    strcpy(daftarBuku[idx].peminjam, "-");
+    daftarBuku[idx].telat = telat;
+
+    printf("\nBuku berhasil dikembalikan!\n");
 }
+
+
 
 
 
@@ -323,7 +468,7 @@ void menuUtama(){
             default :
                 printf("Pilihan tidak valid!\n");
         }
-    } while(pilihan != 7);
+    } while(pilihan != 9);
 }
 
 int main(){
