@@ -273,7 +273,37 @@ void rumahPola(){
 }
 
 void benderaNegara(){
-    printf("hai");
+    system ("cls");
+
+    int flagWidth = 30;
+    int flagHeight = 10;
+    int poleExtra = 6;
+    int groundWidth = 5;
+
+    printf("\n=== BENDERA INDONESIA ===\n\n");
+
+    for(int i = 0; i < flagHeight / 2; i++) {
+        printf("| ");
+        for(int j = 0; j < flagWidth; j++) printf("#");
+        printf("\n");
+    } 
+
+    for(int i = 0; i < flagHeight / 2; i++) {
+        printf("| ");
+        for(int j = 0; j < flagWidth; j++) printf(".");
+        printf("\n");
+    }
+
+    for(int i = 0; i < poleExtra; i++)
+        printf("| \n");
+
+    for(int i = 0; i < groundWidth; i++)
+        printf("=");
+
+     printf("\n\nTekan enter untuk kembali...");
+    getch();
+}
+
 }
 
 void pinjamBuku() {
