@@ -217,9 +217,9 @@ void rumahPola(){
 
         for (int t = 0; t < i *2; t++) {
              if (i == tinggiAtap -1)
-                putchar('_'); 
+                 putchar('_'); 
              else
-             putchar(' ');
+                 putchar(' ');
         }   
     
         putchar('\\');
