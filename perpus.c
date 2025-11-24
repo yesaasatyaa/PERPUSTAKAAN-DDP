@@ -150,7 +150,7 @@ void editBuku(){
     printf("\n=== Data Buku Saat Ini ===\n");
     printf("Judul     : %s\n", daftarBuku[idx].judul);
     printf("Penulis   : %s\n", daftarBuku[idx].penulis);
-    printf("Tahun     : %s\n", daftarBuku[idx].tahun);
+    printf("Tahun     : %d\n", daftarBuku[idx].tahun);
     printf("Status    : %s\n", daftarBuku[idx].dipinjam ? "Dipinjam" : "Tersedia");
 
     printf("\n=== Edit Buku (Kosongkan untuk tidak mengubah) ===\n");
@@ -174,7 +174,7 @@ void editBuku(){
     int tahunBaru = atoi(tmp);
     if(tahunBaru > 0)
         daftarBuku[idx].tahun = tahunBaru;
-}
+    }
 
     printf("\nBuku berhasil diperbarui!\n");
 }
@@ -207,7 +207,6 @@ void rumahPola(){
     system("cls");
 
     int tinggiAtap = 4;
-    int lebar = 11;
 
     for(int i = 0; i < tinggiAtap; i++) {
         for (int s = 0; s < tinggiAtap - i; s++) {
@@ -302,8 +301,6 @@ void benderaNegara(){
 
      printf("\n\nTekan enter untuk kembali...");
     getch();
-}
-
 }
 
 void pinjamBuku() {
