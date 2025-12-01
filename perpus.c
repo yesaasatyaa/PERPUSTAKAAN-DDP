@@ -260,37 +260,60 @@ void rumahPola(){
 
 }
 
-void benderaNegara(){
-    system ("cls");
-
-    int flagWidth = 30;
-    int flagHeight = 10;
-    int poleExtra = 6;
-    int groundWidth = 5;
-
-    printf("\n=== BENDERA INDONESIA ===\n\n");
-
-    for(int i = 0; i < flagHeight / 2; i++) {
-        printf("| ");
-        for(int j = 0; j < flagWidth; j++) printf("#");
-        printf("\n");
-    } 
-
-    for(int i = 0; i < flagHeight / 2; i++) {
-        printf("| ");
-        for(int j = 0; j < flagWidth; j++) printf(".");
-        printf("\n");
-    }
-
-    for(int i = 0; i < poleExtra; i++)
-        printf("| \n");
-
-    for(int i = 0; i < groundWidth; i++)
-        printf("=");
-
-     printf("\n\nTekan enter untuk kembali...");
-    getch();
+void setColorBendera(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
+
+void benderaNegara(){
+    system("cls");
+
+    char ulang;
+
+    do {
+        system("cls");
+        int tinggi;
+
+        printf("Masukkan tinggi bendera : ");
+        scanf("%d", &tinggi);
+
+        int lebar = tinggi * 8;
+
+        printf("\n=====================================\n");
+        printf("=         BENDERA SUDAH JADI        =\n");
+        printf("=====================================\n");
+
+        for (int i = 0; i < tinggi; i++) {
+            setColorBendera(4);
+            for (int j = 0; j < lebar; j++) {
+                printf("%c", 219);
+            }
+            printf("\n");
+            Sleep(20);
+        }
+
+
+        for (int i = 0; i < tinggi; i++) {
+            setColorBendera(15);
+            for (int j = 0; j < lebar; j++) {
+                printf("%c", 219);
+            }
+            printf("\n");
+            Sleep(20);
+        }
+
+        setColorBendera(7);
+
+        printf("Apakah anda mau mengulang? (y/n): ");
+        fflush(stdin);
+        scanf(" %c", &ulang);
+
+    } while (ulang == 'y' || ulang == 'Y');
+
+    return;
+}
+
+	
+
 
 void pinjamBuku() {
     printf("\n=== DAFTAR BUKU ===\n");
@@ -445,8 +468,8 @@ void menuUtama(){
         printf("2. Lihat list buku\n");
         printf("3. Edit buku\n");
         printf("4. Hapus buku\n");
-        printf("5. Rumah pola\n");
-        printf("6. Bendera Negara\n");
+        printf("5. Rumah pola (semoga ga kena badai)\n");
+        printf("6. Bendera Negara (pelis ga error)\n");
         printf("7. Pinjam buku\n");
         printf("8. Pengembalian buku + denda\n");
         printf("9. Exit\n");
