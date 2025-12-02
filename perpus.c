@@ -3,6 +3,13 @@
 #include <windows.h>
 #include <conio.h>
 
+// ANSI color codes (added for house pattern)
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define MAGENTA "\033[35m"
+#define BLUE    "\033[34m"
+#define YELLOW  "\033[33m"
+
 struct Buku {
     int id;               
     char judul[100];
@@ -14,7 +21,6 @@ struct Buku {
     int telat;
     char alasan[100];
 };
-
 
 struct User{
     char username[30];
@@ -104,7 +110,6 @@ void tambahBuku() {
     printf("\nBuku berhasil ditambahkan!\n");
 }
 
-
 void lihatBuku() {
     printf("\n=== DAFTAR BUKU ===\n");
 
@@ -129,7 +134,6 @@ void lihatBuku() {
 
     printf("+----+------------------------------+-------------------------+-------+-------------+\n");
 }
-
 
 void editBuku(){
     char judulCari[100];
@@ -189,7 +193,7 @@ void hapusBuku(){
 
     int idx = cariIndexByJudul(judulCari);
 
-    if(idx == 1){
+    if(idx == -1){
         printf("\nBuku tidak ditemukan!\n");
         return;
     }
@@ -203,61 +207,65 @@ void hapusBuku(){
     printf("\nBuku berhasil dihapus!\n");
 }
 
+
 void rumahPola(){
-    system("cls");
+    char ulang;
+    
+    do {
+        system("cls");
+        
+        int roof_height, body_height, i, j, k;
+        char symbol;
+        
 
-    int tinggiAtap = 4;
+        printf("Masukkan tinggi atap: ");
+        scanf("%d", &roof_height);
+        
 
-    printf("       ~ ~\n");
-    printf("       ~\n");
+        printf("Masukkan tinggi body: ");
+        scanf("%d", &body_height);
+        
 
-    for(int i = 0; i < tinggiAtap; i++) {
-        for (int s = 0; s < tinggiAtap - i; s++) {
-            putchar(' ');
+        printf("Masukkan karakter pola: ");
+        scanf(" %c", &symbol);
+        
+        system("cls");
+        
+
+        for (i = 1; i <= roof_height; i++) {
+            for (j = 1; j <= 15 - i; j++) {
+                printf(" ");
+            }
+            for (k = 1; k <= i * 2 + 9; k++) {
+                if (k <= 11) printf(RED "%c", symbol);
+                else printf(MAGENTA "%c", symbol);
+            }
+            printf(RESET "\n");
+            Sleep(500);
         }
+        
+        int cols = roof_height * 2 + 9;
+        int body_spaces = 15 - roof_height;
+        
 
-        putchar('/');
-
-        for (int t = 0; t < i * 2; t++) {
-             if (i == tinggiAtap -1)
-                 putchar('_'); 
-             else
-                 putchar(' ');
-        }   
+        for (i = 1; i <= body_height; i++) {
+            for (j = 1; j <= body_spaces; j++) {
+                printf(" ");
+            }
+            for (j = 1; j <= cols; j++) {
+                if (j <= 11) printf(BLUE "%c", symbol);
+                else printf(YELLOW "%c", symbol);
+            }
+            printf(RESET "\n");
+            Sleep(500); 
+        }
+        
+        printf("\nulang membuat rumah? (y/n): ");
+        fflush(stdin);
+        scanf(" %c", &ulang);
+        
+    } while (ulang == 'y' || ulang == 'Y');
     
-        putchar('\\');
-        putchar('\n');
-    }
-
-    for (int i = 0; i < 4; i++) {
-        printf("|");
-
-        if(i == 1 || i == 2)
-            printf(" []  [] ");
-        else
-            printf("        ");
-
-        printf("|\n");
-    }  
-    
-    for (int i = 0; i < 3; i++) {
-        printf("|");
-
-        if (i == 0)
-            printf("  ___   ");
-        else if (i == 1 )
-            printf(" |o o|  ");
-        else
-            printf(" |___|  ");
-
-        printf("|\n");
-    }
-    
-    for (int i = 0; i < 5; i++) 
-        printf("=|");
-    printf("=|");
-
-
 }
 
 void setColorBendera(int color) {
@@ -312,9 +320,6 @@ void benderaNegara(){
     return;
 }
 
-	
-
-
 void pinjamBuku() {
     printf("\n=== DAFTAR BUKU ===\n");
     lihatBuku();
@@ -361,8 +366,6 @@ void pinjamBuku() {
     printf("\nTekan enter untuk kembali ke menu...");
     getch();
 }
-
-
 
 void pengembalianBuku() {
 
@@ -454,10 +457,6 @@ void pengembalianBuku() {
 
     printf("\nBuku berhasil dikembalikan!\n");
 }
-
-
-
-
 
 void menuUtama(){
     int pilihan;
